@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+ruby "2.7.1"
+gem 'sinatra', '~> 2.1.0'
+gem 'sinatra-activerecord'
+gem 'sinatra-contrib'
+gem 'activesupport'
+gem 'puma'
+gem 'pry'
+gem 'sqlite3'
+# gem 'thin'

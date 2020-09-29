@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+</head>
+<body>
+    <%= @events.count %> events.
+    <ul>
+        <% @events.each do |event| %>
+            <li><%= event.id %> <%= event.description %> <%= event.ticketno %> <%= event.dtstart.localtime %> </li>
+        <% end %>
+    </ul>
+</body>
+</html>

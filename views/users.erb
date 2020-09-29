@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <ul>
+        <% @users.each do |user| %>
+            <li>
+            <% user.attributes.each do |k,v| %>
+                <%= k %>: <%= v%>,
+            <%end %>
+        <% end %>
+    </ul>
+</body>
+</html>

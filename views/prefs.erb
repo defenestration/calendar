@@ -1,0 +1,18 @@
+<%= @prefs_message %>
+<ul>
+    <% @loggedin.attributes.each do |k,v| %>
+        <li> <%= k %>: <%= v %> </li>
+    <% end %> 
+</ul>
+
+
+<form method="POST" action="/prefs">
+  <p>Timezone:
+  <select name="timezone">
+  <% @timezones.each do |tz|  %>
+    <option <%= "selected" if tz.name == @loggedin.timezone %> value="<%= tz.name %>"><%= tz.name %> : <%= tz.formatted_offset(false) %> <%#= tz.tzinfo %></option>
+  <% end %>
+  </select>
+
+  <input type="submit">
+</form>

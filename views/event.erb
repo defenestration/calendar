@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event <%= @event.id %></title>
+</head>
+<body>
+    <ul>
+        <% @event.attributes.each do |k,v| %>
+            <li><%= k %>: <%= v %> </li>
+        <% end %>
+        <li> <%= @event.dtstart.localtime %> </li>
+    </ul>
+</body>
+</html>
