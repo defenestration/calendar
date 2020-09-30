@@ -1,16 +1,38 @@
 #!/usr/bin/env ruby
 # https://gist.github.com/jtallant/fd66db19e078809dfe94401a0fc814d2
 require 'sinatra'
-# require "sinatra/cookies"
+require 'sinatra/config_file'
 require 'sinatra/activerecord'
 require 'active_support/all'
 require './models'
 
+config_file './config/config.yml'
+
 set :bind, '0.0.0.0'
 set :logging, true
-set :database, "sqlite3:db.sqlite3"
+# set :database, "sqlite3:db.sqlite3"
 set :zone, "Eastern Time (US & Canada)"
 set :sessions, true
+set :session_secret, settings.session_secret
+
+helpers do
+  def loggedin?
+    return if @loggedin
+    halt 401, "<p>401. Please <a href=/login>login</a>.</p>"
+  end
+  def admin?
+    loggedin?
+    return if @loggedin.admin
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized, admin only.\n"
+  end
+  def logout!
+    @loggedin = nil
+    session.delete :user
+    session.delete :timezone
+    session.delete :admin
+  end
+end
 
 before do
   # logger.debug(params) if params
@@ -49,23 +71,32 @@ post '/login' do
     session[:login_message] = "Login failed"
     redirect '/login'
   end
+  if params['password'] != user.password
+    session[:login_message] = "Login failed"
+    redirect '/login'
+  end
   session[:user] = user.name
   session[:timezone] = user.timezone
   session[:admin] = user.admin
   redirect '/prefs'
 end
 
+get '/logout' do
+  logout!
+  redirect '/login'
+end
+
 get '/prefs' do
-  if not @loggedin
-    redirect '/login'
-  end
+  loggedin?
   @timezones = ActiveSupport::TimeZone.all
   erb :prefs
 end
 
 post '/prefs' do
+  loggedin?
   # logger.debug(params)
   @loggedin.timezone = params['timezone']
+  @loggedin.password = params['password']
   @loggedin.save
   session[:prefs_message] = "Prefs saved!"
   redirect '/prefs'
@@ -74,6 +105,15 @@ end
 get '/users' do
   @users = User.all
   erb :users
+end
+
+get '/protected' do
+  admin?
+  "blah blah blah"
+end
+get '/admin' do
+  admin?
+  "admin!"
 end
 
 get '/events' do

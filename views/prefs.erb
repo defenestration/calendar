@@ -5,6 +5,9 @@
     <% end %> 
 </ul>
 
+<% if @loggedin.admin %>
+<p><a href='/admin'>admin page</a> </p>
+<% end %>
 
 <form method="POST" action="/prefs">
   <p>Timezone:
@@ -14,5 +17,8 @@
   <% end %>
   </select>
 
+  <% if not @loggedin.password.nil? %>
+  <p>Password: <input type="text" name="password" value="<%= @loggedin.password %>"></p>
+  <% end %> 
   <input type="submit">
 </form>
