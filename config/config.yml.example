@@ -1,6 +1,5 @@
 #generate a new one `ruby -e "require 'securerandom'; puts SecureRandom.hex(64)"`
 session_secret: a5b5601f1eee77fbc94c9453e9eca86429e1f3df7c1d869043b0805608f138b41caa63edda295b903f2db49faf85c0dc44206abd6eba079307ca2b6dd9118c86
-# database picked up automatically?
-environment: development
-development:
-  database: sqlite3:db.sqlite3
+
+# database picked up automatically
+database: sqlite3:db.sqlite3

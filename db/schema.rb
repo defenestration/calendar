@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_29_180512) do
+ActiveRecord::Schema.define(version: 2020_09_30_211635) do
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "dtstart"
     t.datetime "dtend"
-    t.string "uid"
     t.string "flag"
     t.string "submitip"
     t.string "building"
@@ -32,11 +31,11 @@ ActiveRecord::Schema.define(version: 2020_09_29_180512) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.boolean "admin"
-    t.boolean "ldap"
     t.string "password"
     t.string "timezone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "ldap", default: false
   end
 
 end

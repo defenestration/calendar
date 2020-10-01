@@ -1,14 +1,13 @@
 #!/usr/bin/env ruby
 # https://gist.github.com/jtallant/fd66db19e078809dfe94401a0fc814d2
 require 'sinatra'
-require 'sinatra/config_file'
 require 'sinatra/activerecord'
 require 'active_support/all'
 require './models'
 
+require 'sinatra/config_file'
 config_file './config/config.yml'
 
-set :environment, settings.environment
 set :bind, '0.0.0.0'
 set :logging, true
 # set :database, "sqlite3:db.sqlite3"

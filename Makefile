@@ -7,22 +7,26 @@ include make_env
 initdb: config
 	docker run --rm --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(UIDS) $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION)  rake db:create
 
-cleardb: 
+clean: cleandb 
+
+cleandb: 
 	rm $(DB_FILE)
-clearconf:
+cleanconf:
 	rm -rf $(CONFIG_FILE)
 	
 config:
 	#sample config setup
-	if ! [ -d $(CONFIG_PATH) ] ; then mkdir -p $(CONFIG_PATH) ; fi
-
 	if ! [ -f $(CONFIG_FILE) ] ; then \
-	cp ./config/config.yml.example $(CONFIG_FILE) ; \
+	cp ./$(CONFIG_FILE).example $(CONFIG_FILE) ; \
+	fi
+
+	if ! [ -f $(DBCONF_FILE) ] ; then \
+	cp ./$(DBCONF_FILE).example $(DBCONF_FILE) ; \
 	fi
 
 	if ! [ -f $(DB_FILE) ]; then \
-	echo "creating test db.sqlite3 file" ;\
-	touch $(DB_FILE) ;\
+	docker run --rm --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(UIDS) $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION) rake db:prepare VERBOSE=true ;\
+	docker run --rm --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(UIDS) $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION) rake db:seed VERBOSE=true ;\
 	fi
 
 build: Dockerfile

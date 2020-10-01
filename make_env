@@ -4,10 +4,11 @@ VERSION ?= latest
 IMAGE_NAME ?= calendar
 CONTAINER_NAME ?= calendar
 CONTAINER_INSTANCE ?= default
-CONFIG_PATH ?= ~/.config/$(IMAGE_NAME)
-CONFIG_FILE ?= $(CONFIG_PATH)/config.yml
-DB_FILE ?= $(CONFIG_PATH)/db.sqlite3
+CONFIG_FILE ?= $(shell pwd)/config/config.yml
+DBCONF_FILE ?= $(shell pwd)/config/config.yml
+DB_FILE ?= $(shell pwd)/db.sqlite3
 
-VOLUMES = -v $(shell pwd):/usr/src/app -v $(CONFIG_FILE):/usr/src/app/config/config.yml -v $(DB_FILE):/usr/src/app/db.sqlite3 
+VOLUMES = -v $(shell pwd):/usr/src/app 
 PORTS = -p 4567:4567
-UIDS = -u 1000:1000
+UIDS = -u $(shell id -u ):$(shell id -g)
+ENV = -e RAILS_ENV="development"
