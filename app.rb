@@ -4,14 +4,13 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'active_support/all'
 require './models'
-
 require 'sinatra/config_file'
+
 config_file './config/config.yml'
 
 set :bind, '0.0.0.0'
 set :logging, true
-# set :database, "sqlite3:db.sqlite3"
-set :zone, "Eastern Time (US & Canada)"
+set :timezone, settings.timezone
 set :sessions, true
 set :session_secret, settings.session_secret
 
@@ -36,7 +35,7 @@ end
 
 before do
   # logger.debug(params) if params
-  Time.zone = settings.zone
+  Time.zone = settings.timezone
   if not session[:timezone].nil?
     Time.zone = session[:timezone] 
   end
@@ -54,7 +53,7 @@ before do
 end
 
 get '/' do
-  "hi #{session[:user]}. The time is: #{Time.zone.now}. Timezone is '#{Time.zone}'"
+  "hi #{session[:user]}. The time is: #{Time.zone.now}. Timezone is '#{Time.zone.name}'. "
 end
 
 get '/session' do
