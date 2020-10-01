@@ -5,7 +5,7 @@ IMAGE_NAME ?= calendar
 CONTAINER_NAME ?= calendar
 CONTAINER_INSTANCE ?= default
 CONFIG_FILE ?= $(shell pwd)/config/config.yml
-DBCONF_FILE ?= $(shell pwd)/config/config.yml
+DBCONF_FILE ?= $(shell pwd)/config/database.yml
 DB_FILE ?= $(shell pwd)/db.sqlite3
 
 VOLUMES = -v $(shell pwd):/usr/src/app 

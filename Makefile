@@ -17,11 +17,11 @@ cleanconf:
 config:
 	#sample config setup
 	if ! [ -f $(CONFIG_FILE) ] ; then \
-	cp ./$(CONFIG_FILE).example $(CONFIG_FILE) ; \
+	cp $(CONFIG_FILE).example $(CONFIG_FILE) ; \
 	fi
 
 	if ! [ -f $(DBCONF_FILE) ] ; then \
-	cp ./$(DBCONF_FILE).example $(DBCONF_FILE) ; \
+	cp $(DBCONF_FILE).example $(DBCONF_FILE) ; \
 	fi
 
 	if ! [ -f $(DB_FILE) ]; then \
