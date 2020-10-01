@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_09_29_180512) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.boolean "admin"
+    t.boolean "ldap"
     t.string "password"
     t.string "timezone"
     t.datetime "created_at"
