@@ -8,6 +8,7 @@ require './models'
 
 config_file './config/config.yml'
 
+set :environment, settings.environment
 set :bind, '0.0.0.0'
 set :logging, true
 # set :database, "sqlite3:db.sqlite3"

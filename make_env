@@ -1,14 +1,13 @@
 NS ?= abrevick
 VERSION ?= latest
 
-IMAGE_NAME ?= sinatra
-CONTAINER_NAME ?= sinatra
+IMAGE_NAME ?= calendar
+CONTAINER_NAME ?= calendar
 CONTAINER_INSTANCE ?= default
 CONFIG_PATH ?= ~/.config/$(IMAGE_NAME)
 CONFIG_FILE ?= $(CONFIG_PATH)/config.yml
 DB_FILE ?= $(CONFIG_PATH)/db.sqlite3
 
-VOLUMES = -v $(CONFIG_FILE):/usr/src/app/lib/config.yml -v $(DB_FILE):/usr/src/app/db.sqlite3
-CWDVOLUME = -v $(shell pwd):/usr/src/app
+VOLUMES = -v $(shell pwd):/usr/src/app -v $(CONFIG_FILE):/usr/src/app/config/config.yml -v $(DB_FILE):/usr/src/app/db.sqlite3 
 PORTS = -p 4567:4567
 UIDS = -u 1000:1000
