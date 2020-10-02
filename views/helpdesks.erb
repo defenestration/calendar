@@ -1,0 +1,5 @@
+<% @helpdesks.each do |h| %>
+    <li> <% h.attributes.each do |k,v| %>
+ <%= k %>: <%= v %>,
+ <% end %>
+<% end %>

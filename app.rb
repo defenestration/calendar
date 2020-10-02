@@ -124,6 +124,8 @@ end
 
 get '/event/new' do
   loggedin?
+  @helpdesks = Helpdesk.all
+  @buildings = Building.all
   erb :'event/new'
 end
 
@@ -152,4 +154,14 @@ end
 get '/event/:id' do
   @event = Event.find_by(id: params['id'])
   erb :event
+end
+
+get '/helpdesks' do
+  admin?
+  @helpdesks = Helpdesk.all
+  erb :helpdesks
+end
+
+get '/helpdesks.json' do
+  Helpdesk.all.to_json
 end

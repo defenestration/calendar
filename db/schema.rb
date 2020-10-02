@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_211635) do
+ActiveRecord::Schema.define(version: 2020_10_02_050826) do
+
+  create_table "buildings", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "enabled"
+  end
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -26,6 +32,12 @@ ActiveRecord::Schema.define(version: 2020_09_30_211635) do
     t.string "ticketno"
     t.string "helpdesk"
     t.boolean "downtime"
+  end
+
+  create_table "helpdesks", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.boolean "enabled"
   end
 
   create_table "users", force: :cascade do |t|
