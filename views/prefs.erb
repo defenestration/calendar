@@ -5,8 +5,9 @@
     <% end %> 
 </ul>
 
-<% if @loggedin.admin %>
+<% if @loggedin.admin? %>
 <p><a href='/admin'>admin page</a> </p>
+<p><%= erb :session %>
 <% end %>
 
 <form method="POST" action="/prefs">

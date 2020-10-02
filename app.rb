@@ -11,7 +11,8 @@ config_file './config/config.yml'
 set :bind, '0.0.0.0'
 set :logging, true
 set :timezone, settings.timezone
-set :sessions, true
+
+enable :sessions
 set :session_secret, settings.session_secret
 set :sessions, :expire_after => 604800
 
@@ -122,6 +123,11 @@ get '/events' do
 end
 
 get '/event/new' do
+  loggedin?
+  erb :'event/new'
+end
+
+post '/event/new' do
   logger.debug(params)
   # dtstart = params['dtstart']
   # dtend = params['dtend']

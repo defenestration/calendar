@@ -1,0 +1,22 @@
+<form method="POST" action="/event/new">
+  <p> dtstart: <input type="datetime-local" name="dtstart"></p>
+  <p> dtend: <input type="datetime-local" name="dtend"></p>
+  <p> building: <input type="text" name="building"></p>
+  <p> hostname: <input type="text" name="hostname"></p>
+  <p> building: <input type="text" name="building"></p>
+  <p> enterprise: <select name="enterprise"><option value=true>true</option><option value=false>false</option></select>
+  <input type='hidden' name='submitip' value="<%= @loggedin.name %>">
+  
+  <input type="submit">
+</form>
+
+t.datetime "dtstart" 
+t.datetime "dtend"
+t.string "submitip"
+t.string "building"
+t.string "hostname"
+t.boolean "enterprise"
+t.text "description"
+t.string "ticketno"
+t.string "helpdesk"
+t.boolean "downtime"
