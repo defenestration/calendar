@@ -7,7 +7,12 @@
     <%= @events.count %> events.
     <ul>
         <% @events.each do |event| %>
-            <li><%= event.id %> <%= event.description %> <%= event.ticketno %> <%= event.dtstart.localtime %> </li>
+            <li>
+            <% event.attributes.each do |k,v| %> 
+                <%=  k %>: <% if v.class.name == "Time" %><%= tzconvert(v) %><% else %><%= v %><% end %><br> 
+            <% end %> 
+            | dtstart: <%= tzconvert(event.dtstart) %>
+            </li>
         <% end %>
     </ul>
 </body>

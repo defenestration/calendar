@@ -33,6 +33,17 @@ helpers do
     session.delete :timezone
     session.delete :admin
   end
+  def tzconvert(time = Time.now)
+    if time.class.name == "Time"
+      if @loggedin.timezone
+        return time.in_time_zone(@loggedin.timezone).to_s
+      else
+        return time.in_time_zone(settings.timezone).to_s
+      end
+      return time.in_time_zone(settings.timezone).to_s
+    end
+    return "N/A #{time}"
+  end
 end
 
 before do
@@ -55,7 +66,7 @@ before do
 end
 
 get '/' do
-  "hi #{session[:user]}. The time is: #{Time.zone.now}. Timezone is '#{Time.zone.name}'. "
+  erb "hi #{session[:user]}. The time is: #{Time.zone.now}. Timezone is '#{Time.zone.name}'. "
 end
 
 get '/session' do
@@ -103,18 +114,16 @@ post '/prefs' do
   redirect '/prefs'
 end
 
-get '/users' do
-  @users = User.all
-  erb :users
-end
+# get '/users' do
+#   admin?
+#   @users = User.all
+#   erb :users
+# end
 
-get '/protected' do
-  admin?
-  "blah blah blah"
-end
 get '/admin' do
   admin?
-  "admin!"
+  @users = User.all
+  erb :admin
 end
 
 get '/events' do

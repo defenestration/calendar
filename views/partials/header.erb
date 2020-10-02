@@ -1,0 +1,15 @@
+<div class="header" id="header">
+<a href=/>/</a> | 
+<a href='/events'>events</a> | 
+<%if @loggedin %> 
+<a href='/event/new'>new event</a> | 
+<a href='/logout'>logout</a> | 
+<a href='/prefs'>prefs user: <%= @loggedin.name %> 
+</a> | 
+<% if @loggedin.admin %> 
+<a href="/admin">admin</a>  |
+<% end %>
+<% else %>
+<a href='/login'>login</a> | 
+<% end %> 
+</div>
