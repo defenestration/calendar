@@ -13,6 +13,7 @@ set :logging, true
 set :timezone, settings.timezone
 set :sessions, true
 set :session_secret, settings.session_secret
+set :sessions, :expire_after => 604800
 
 helpers do
   def loggedin?
